@@ -1,7 +1,7 @@
 module.exports = {
-  base: '/',
-  title: '',
-  description: '点动科技,代码规范,前端规范,前端指导',
+  base: '/front-code-guide/',
+  title: '前端代码规范',
+  description: '前端指导，代码规范',
   /** 插件配置 */
   plugins: [
     '@vuepress/back-to-top' // 返回顶部
