@@ -1,0 +1,15 @@
+{
+  "name": "front-code-guide",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "杨建 <yangj@diandongmark.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "bash deploy.sh"
+  },
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  }
+}

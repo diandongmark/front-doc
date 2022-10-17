@@ -1,0 +1,8 @@
+{
+  "name": "front-doc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/diandongmark/front-doc.git",
+  "author": "杨建 <yangj@diandongmark.com>",
+  "license": "MIT"
+}
