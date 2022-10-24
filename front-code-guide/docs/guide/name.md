@@ -71,23 +71,17 @@ sidebar: auto
 - 全部采用 ***“串式命名法”*** ，即：***英文小写 + “-”*** 链接符号组成。
 - 命名应以 ***“项目英文名称” - “项目类型的顺序组成”*** 。
 ```
-scientific-research-platform-admin // 科研-平台-管理端
-scientific-research-platform-pc // 科研-平台-PC前端
-scientific-research-platform-service // 科研-平台-服务端（此命名后端约定，仅举例）
-
-// future
-public-health-admin // 公共卫生-管理端
-public-health-h5 // 公共卫生-移动端
-public-health-uni // 公共卫生-uniapp端（具体类型在项目简介中说明）
+name-h5 // 项目名-移动端
+name-admin // 项目名-管理端
 ```
 
 #### 项目类型说明
 ```
-project-name-pc // 电脑端 web 项目
-project-name-h5 // 移动端 web 项目
-project-name-admin // 管理端 web 项目
-project-name-uni // uni项目
-project-name-other // 其他项目
+-pc // 电脑端 web 项目
+-h5 // 移动端 web 项目
+-admin // 管理端 web 项目
+-uni // uni项目
+-other // 其他项目
 ```
 ```
 /**
@@ -120,38 +114,25 @@ home
 
 shop
   - index.vue // 商城首页
-  - detail.vue // 商城详情页
+  - detail.vue // 详情页
 
 user
   - index.vue // 个人中心首页
-  - userinfo.vue // 修改信息页
-  - agree.vue // 个人协议相关
-  - setting.vue // 个人应用设置
+  - integral.vue // 积分页
+  - integral-detail.vue // 积分商品-详情
 ```
 
 ### 组件命名
 - 组件的命名采用 ***“大驼峰命名法”*** 。
-- 命名应语义化，在与其他业务组件同层时，应加上页面前缀来区分，若已分割独立文件夹存放组件，可以采用简略、清晰的命名。
+- 命名应语义化，采用简略、清晰的命名。
 ```
-components
-  - Button.vue // 按钮组件
-  - Banner.vue // 版块图
-  - Swiper.vue // 轮播图
-
-// 推荐的组件命名
-components
-  - some // 文件夹下的相关依赖
-    - other.scss
-    - lib.js
-  - Some.vue // 组件
-
-// 不推荐，但不强制修改，多为框架中自带，但依然可以通过：大驼峰理解为组件
 components
   - Some // 组件文件夹
     - index.vue
     - index.scss
     - img
       - some.png
+      ...
 ```
 
 ### 资源命名
@@ -170,42 +151,43 @@ components
 本文讲述的为业务逻辑下目录结构的设计，主要遵循 2个策略：```“全局分配，就近原则”```
 
 ### 全局分配
-所有涉及多次用的 ***依赖、插件、资源、API*** 等等都应放置在顶层目录下 ```src/```。
+- 所有涉及多次复用的 ***依赖、插件、资源、API*** 等等都应放置在顶层目录 ```src/``` 下，对应的目录。
+- 所有业务代码结构，都应按照模块结构创建目录。
 ```
-// 例举
+// 例举（以下仅列举部分，assets... 等其他未列举的都应遵循这一规范）
 project/src
   - api
-    - app.js // 存放 APP 相关接口，用户登录、登出，token、配置信息获取等等
+    - app.js // 存放公共相关接口等...
+    // 业务体量大时，应按照页面目录模块建立对应接口
+    - home.js
+    - shop.js
+    - user.js
   - assets
-  - compoents // 涉及到复用、通用性强的组件，应统一在顶层 components 下
+  - compoents // 涉及复用、通用性强的组件
     - Button
     - Icon
-    - Loading // 通用的家在
-    - Title // 通用的标题
+    - Loading
+    - Title
   - store
   - views
 
 ```
-- 如何理解可复用性：```login、user、config``` 等必然为全局 ```API``` ，其他组件、资源同理
 
 ### 就近原则
-所有非复用的：***组件、插件、数据资源、接口API*** ，全部可放置在当前页面对应的资源文件夹下。
+业务逻辑相关的组件，应放置在当前页面对应的目录下。
 ```
 project/src/views
 
 views
   - home
-    index // 首页依赖文件夹
-      components // 组件
-        home-title
-          - someLib.js
-        - HomeButton.vue
-        - HomeTitle.vue
-    search
-      api.js
-      data.json // 假定依赖的数据
+    index // 首页
+      HeaderTitle.vue // 首页标题组件
+      Icon.vue // 首页图标
+    search // 搜索
+      List.vue // 列表组件
     index.vue
     search.vue
   - shop 
   - user
+  ...
 ```

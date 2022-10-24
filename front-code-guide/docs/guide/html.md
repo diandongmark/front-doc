@@ -8,28 +8,29 @@ sidebar: auto
 - 缩进使用 ***（2个空格）***
 - 在属性上，使用 ***双引号***，不要使用单引号
 - 属性名采用 ***“串式命名法”*** ，即：***全小写，用中划线做分隔符***
+- 绑定的函数属性，应采用 ***串式命名***，函数事件使用 ***小驼峰命名***。
 ```
 <Button some-atter="someVar">
   按钮
 </Button>
 
-<Banner :data="bannerList" limit-number="2" />
+<Banner :data="bannerList" limit-number="2" @some-change="someChange"/>
 ```
 
 ## 属性顺序
 属性应该按照特定的顺序出现以保证易读性
-- ```class```、```id```、```ref```
+- 第一梯队，标识命名
+  - ```class```、```id```、```ref```
   - ```class``` 是为复用设计的，所以应处在第一位
   - ```id``` 作为标识应靠前，但是使用频率较 ```class```  低，所以将它放在第二位
   - ```ref``` 同 ```id```，通常情况两者只需要使用一种
-- 
 
-- ```src，type，href，value``` 等
-- ```readonly，disabled``` 等
-  - 常规属性放在第二序列
-- ```for，if，style``` 等
-- ```event：click，change，select``` 等
-  ```for、if、style、event``` 等逻辑属性放在尾部
+- 第二梯队，常规属性
+  - ```src，type，href，value...``` 等
+  - ```readonly，disabled...``` 等
+- 第三梯队，业务逻辑性强
+  - ```for、if、:style...``` 等
+  - ```click，change，select，@some-custom...``` 等
 ```
 <div
   class="list"
@@ -37,14 +38,14 @@ sidebar: auto
   ref="listRef"
 >
   <div
-    // css 名称等优先级最高
+    // 命名优先级最高
     class="list-item"
 
     // 常规属性
     :src="item.src"
     :type="item.type"
 
-    // 尾部属性
+    // 逻辑相关
     v-for="(item, i) in list"
     :key=item.id
     @click="clickItem(item)"
@@ -68,8 +69,8 @@ sidebar: auto
 <Button disabled="1">按钮</Button>
 ```
 
-## 组件的 Props 设计
-- ```slot``` 尽量利用 ```slot``` 来完成基础文字的展示功能
+## 插槽
+- 尽量利用 ```slot``` 来完成基础文字等展示功能
 ```
 <!-- 应用部分 -->
 <Button>按钮</Button>
@@ -79,32 +80,9 @@ sidebar: auto
   <slot></slot>
 </div>
 ```
-- 属性：属性设计应遵循
-  - 数据: 数据应单独为一个独立属性传入
-  ```
-  <Banner :data="bannerData"></Banner>
-  ```
-  - 配置: 配置项过多时应传入 object 来实现分组，避免过多的属性设计，导致维护困难
-  ```
-  <Banner :data="bannerData" config="bannerConfig"></Banner>
-
-  <!--错误的示例 -->
-  <Banner
-    :data="bannerData"
-    :auto="bannerAuto"
-    :deplay="someDeplay"
-    :countTime="time"
-    :hideButton="hideButton"
-    :beforeData="getBeforeData"
-  >
-  </Banner>
-
-  <!-- 函数设计，也应遵循这个设计思路 -->
-  ```
-  - 事件: 事件作为独立项交互，并遵循语义化规则
 
 ## 其他
-- ***html*** 的设计思路应尽量遵循 ***文档流***
+- ***html*** 的编写设计思路应尽量遵循 ***文档流***
 - 避免过多的使用 ***定位***
 - 避免过多使用 ***固定宽、高***
 - 避免无意义的节点嵌套
